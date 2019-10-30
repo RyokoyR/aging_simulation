@@ -46,7 +46,7 @@ class inter_aging_simulate():
                 return self.simulation_input_df
 
         #取ってきた任意の年齢のサンプル全てに対応する潜在変数からデコーダーを使って遺伝子発現をシミュレーションする関数
-        def get_simulation_df(self):
+        def get_simulation_df(self,save_simulation_path):
                 #学習済みのデコーダーモデルを読み込む
                 decoder_model = keras.models.load_model(self.decoder_model_path)
                 simulation_list = []
@@ -63,6 +63,25 @@ class inter_aging_simulate():
                                 rnaseq_simulation_df = pd.DataFrame(rnaseq_simulation,index=[sample_name],columns=rnaseq_df.columns) #rnaseq_dfを読み込んでおく必要あり
                                 df_template = pd.concat([df_template,rnaseq_simulation_df],axis = 0)
                         simulation_list = simulation_list.append(df_template)
-                simulation_df_nested = pd.DataFrame(simulation_list,columns = self.simulation_input_df.index)
+                self.simulation_df_nested = pd.DataFrame(simulation_list,columns = self.simulation_input_df.index)
+                self.simulation_df_nested.to_csv(save_simulation_path,index=True,header=True)
 
-                         
+        #発現変化をシミュレートしたい遺伝子の名前をdrow_gene_name_listにリスト型で与えて使う
+        def visualize_gene_expression_simulation(self,drow_gene_name_list,save_fig_directory):
+                #save_fig_directoryには画像を保存するディレクトリパスを指定する。ファイル名は勝手に決まる。
+                for gene_name in drow_gene_name_list:
+                    plt.style.use('default')
+                    sns.set()
+                    fig = plt.figure(figsize=(10, 10))
+                    plt.title(gene_name + 'inter_aging_expression')
+                    ax = fig.add_subplot(1,1,1)
+                    ax.set_xlabel("age(0~100)")
+                    ax.set_ylabel("Expression_level")
+                    for sample_name in self.simulation_df_nested.columns:
+                        x = self.simulation_df_nested.loc[sample_name].index
+                        y = self.simulation_df_nested.iloc[:,[gene_name]]
+                        ax.plot(x,y,c = "dodgerblue",alpha = 0.6)
+                    filename = str(self.sample_age)+"yosamle"+gene_name+"simulation.pdf"
+                    path = os.path.join(,filename)
+                    fig.savefig(path)
+                    
