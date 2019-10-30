@@ -48,14 +48,21 @@ class inter_aging_simulate():
         #取ってきた任意の年齢のサンプル全てに対応する潜在変数からデコーダーを使って遺伝子発現をシミュレーションする関数
         def get_simulation_df(self):
                 #学習済みのデコーダーモデルを読み込む
-                decoder_model = keras.models.load_model(decoder_model_path)
+                decoder_model = keras.models.load_model(self.decoder_model_path)
                 simulation_list = []
                 #0才から100才まで変化する年齢ラベルをつくる
-                #for をサンプル名で回すように編集する
-                for age in range(0,100):
-                        label_df = pd.DataFrame([age]*len(self.latent_variable_df))
-                        label_df.index = self.latent_varible_df.index
-                        label_df.columns = ["age"]
-                        self.decoder_input_df = pd.concat([self.simulation_input_df,label_df],axis=1)
-                        rnaseq_simulation = decoder_model.predict(np.array(self.decoder_input_df))
-                        rnaseq_simulation_df = pd.DataFrame(rnaseq_simulation,index=self.simulation_input_df.index,columns=rnaseq_df.columns) #rnaseq_dfを読み込んでおく必要あり
+                for sample_name in self.simulation_input_df.index:
+                        df_template = pd.DataFrame()
+                        for age in range(0,101):
+                                sample_latent_df = self.simulation_input_df.loc[sample_name]
+                                label_df = pd.DataFrame([age])
+                                label_df.index = [sample_name]
+                                label_df.columns = ["age"]
+                                self.decoder_input_df = pd.concat([self.simulation_input_df,label_df],axis=1)
+                                rnaseq_simulation = decoder_model.predict(np.array(self.decoder_input_df))
+                                rnaseq_simulation_df = pd.DataFrame(rnaseq_simulation,index=[sample_name],columns=rnaseq_df.columns) #rnaseq_dfを読み込んでおく必要あり
+                                df_template = pd.concat([df_template,rnaseq_simulation_df],axis = 0)
+                        simulation_list = simulation_list.append(df_template)
+                simulation_df_nested = pd.DataFrame(simulation_list,columns = self.simulation_input_df.index)
+
+                         
