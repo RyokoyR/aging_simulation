@@ -70,18 +70,17 @@ class inter_aging_simulate():
         def visualize_gene_expression_simulation(self,drow_gene_name_list,save_fig_directory):
                 #save_fig_directoryには画像を保存するディレクトリパスを指定する。ファイル名は勝手に決まる。
                 for gene_name in drow_gene_name_list:
-                    plt.style.use('default')
-                    sns.set()
-                    fig = plt.figure(figsize=(10, 10))
-                    plt.title(gene_name + 'inter_aging_expression')
-                    ax = fig.add_subplot(1,1,1)
-                    ax.set_xlabel("age(0~100)")
-                    ax.set_ylabel("Expression_level")
-                    for sample_name in self.simulation_df_nested.columns:
-                        x = self.simulation_df_nested.loc[sample_name].index
-                        y = self.simulation_df_nested.iloc[:,[gene_name]]
-                        ax.plot(x,y,c = "dodgerblue",alpha = 0.6)
-                    filename = str(self.sample_age)+"yosamle"+gene_name+"simulation.pdf"
-                    path = os.path.join(,filename)
-                    fig.savefig(path)
-                    
+                        plt.style.use('default')
+                        sns.set()
+                        fig = plt.figure(figsize=(10, 10))
+                        plt.title(gene_name + 'inter_aging_expression')
+                        ax = fig.add_subplot(1,1,1)
+                        ax.set_xlabel("age(0~100)")
+                        ax.set_ylabel("Expression_level")
+                        for sample_name in self.simulation_df_nested.columns:
+                                x = self.simulation_df_nested.loc[sample_name].index
+                                y = self.simulation_df_nested.iloc[:,[gene_name]]
+                                ax.plot(x,y,c = "dodgerblue",alpha = 0.6)
+                        filename = str(self.sample_age)+"yosamle"+gene_name+"simulation.pdf"
+                        path = os.path.join(save_fig_directory,filename)
+                        fig.savefig(path)
