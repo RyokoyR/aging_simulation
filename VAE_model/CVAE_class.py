@@ -125,7 +125,7 @@ class Tybalt():
                         #self.hidden2 = self.decoder_hidden2(self.hidden1)
                         #self.rnaseq_reconstruct = self.decoder_activate(self.hidden2)
                         self.decoder_model = Model(self.latent_variable_label_input,self.decoder_to_reconstruct)
-                        self.rnaseq_reconstruct = self.decoder_model(self.merged_decode) 
+                        self.rnaseq_reconstruct = self.decoder_model(self.merged_decode)
 
         def compile_cvae(self):
 
@@ -177,14 +177,6 @@ class Tybalt():
                 encoded_df = pd.DataFrame(encoded_df, columns=range(1, self.latent_dim + 1),
                                   index=rnaseq_df.index)
                 return encoded_df
-        def compress_2(self,df):
-                self.encoder_2 = Model([self.rnaseq_input,self.y_label_input],z)
-
-
-                encoded_2_df = self.encoder_2.predict_on_batch(df)
-                encoded_2_df = pd.DataFrame(encoded_2_df, columns=range(1, self.latent_dim + 1),
-                                  index=rnaseq_df.index)
-                return encoded_2_df
 
         def get_decoder_weights(self):
 
