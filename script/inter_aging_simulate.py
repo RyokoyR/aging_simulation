@@ -31,6 +31,8 @@ import plotly.offline as offline
 import h5py
 import simulate_by_CVAE
 
+epsilon_std = 1.0
+
 #保存したモデルを読み込む
 encoder_model = keras.models.load_model('/lustre7/home/lustre4/ryoyokosaka/python/CVAE_result/encoder_model.hdf5')
 rnaseq_df = pd.read_table('/lustre7/home/lustre4/ryoyokosaka/python/CVAE_result/1_54rnaseq_drop.txt',index_col = 0)
