@@ -198,6 +198,11 @@ class Tybalt():
         def predict(self, df):
                 return self.rnaseq_reconstruct.predict(np.array(df))
 
-        def save_models(self, encoder_file, decoder_file):
-                self.encoder.save(encoder_file)
-                self.decoder.save(decoder_file)
+        def save_models(self, encoder_file_path, decoder_file_path):
+                self.encoder.save(encoder_file_path)
+                self.decoder.save(decoder_file_path)
+
+        def simulate_gene_expression(self,sample_age):
+                #あるサンプル元から取ってきた細胞全て(全て同一年齢のもの)から得られたサンプルから作られた潜在変数を使いその個体の老化過程の遺伝子発現をシミュレーションする(ラベルを動かす)
+                if sample_age == 21:
+                        simulation_input_df =
