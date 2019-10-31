@@ -170,10 +170,10 @@ class Tybalt():
 
                 return fig
 
-        def compress(self, df):
+        def compress(self, df,age_label):
                 # エンコーディングするオブジェクト    #dfにはラベルと合わせたrna-seqデータを入力してください。
                 self.encoder = Model([self.rnaseq_input,self.y_label_input], z)
-                encoded_df = self.encoder.predict_on_batch(df)
+                encoded_df = self.encoder.predict_on_batch([df,label_df])
                 encoded_df = pd.DataFrame(encoded_df, columns=range(1, self.latent_dim + 1),
                                   index=rnaseq_df.index)
                 return encoded_df
