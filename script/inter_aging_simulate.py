@@ -39,7 +39,7 @@ decoder_path = '/lustre7/home/lustre4/ryoyokosaka/python/CVAE_result/decoder_mod
 sampleage = ["21","38","01","05","44","06","54","22"]
 save_fig_directory = '/lustre7/home/lustre4/ryoyokosaka/python/CVAE_result'
 simulation_df_nested_path = '/lustre7/home/lustre4/ryoyokosaka/python/CVAE_result/simulation_df_nested.csv'
-drow_gene_name_list = ["MIR14","CASP1","ANXA4",""]
+drow_gene_name_list = ["SLC41A3","CASP1","FCGR1A","MIR106A","MIR20A","ARL6IP6"]
 for id in sampleage:
         simulater = inter_aging_simulate(id,latent_path,decoder_path)
         simulater.choice_sample_age()
