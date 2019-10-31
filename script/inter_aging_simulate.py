@@ -29,7 +29,7 @@ from matplotlib.cm import get_cmap
 from sklearn.metrics import explained_variance_score
 import plotly.offline as offline
 import h5py
-import sampling,CustomVariationalLayer,WarmUpCallback,simulate_by_CVAE
+import simulate_by_CVAE
 
 #保存したモデルを読み込む
 encoder_model = keras.models.load_model('/lustre7/home/lustre4/ryoyokosaka/python/CVAE_result/encoder_model.hdf5')
