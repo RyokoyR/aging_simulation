@@ -202,7 +202,4 @@ class Tybalt():
                 self.encoder.save(encoder_file_path)
                 self.decoder.save(decoder_file_path)
 
-        def simulate_gene_expression(self,sample_age):
-                #あるサンプル元から取ってきた細胞全て(全て同一年齢のもの)から得られたサンプルから作られた潜在変数を使いその個体の老化過程の遺伝子発現をシミュレーションする(ラベルを動かす)
-                if sample_age == 21:
-                        simulation_input_df =
+        
