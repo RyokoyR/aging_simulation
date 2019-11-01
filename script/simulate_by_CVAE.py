@@ -1,6 +1,6 @@
 #!/lustre7/home/lustre4/ryoyokosaka/python/.pyenv/shims
 import sys
-sys.path.append('/lustre7/home/lustre4/ryoyokosaka/.pyenv/versions/3.6.0/lib/python3.6/site-packages')
+sys.path.append('lustre7/home/lustre4/ryoyokosaka/python/')
 
 import os
 import pandas as pd
@@ -66,7 +66,7 @@ class inter_aging_simulate():
                                 rnaseq_simulation = decoder_model.predict(np.array(self.decoder_input_df))
                                 rnaseq_simulation_df = pd.DataFrame(rnaseq_simulation,index=[sample_name],columns=rnaseq_df.columns) #rnaseq_dfを読み込んでおく必要あり
                                 df_template = pd.concat([df_template,rnaseq_simulation_df],axis = 0)
-                        simulation_list = simulation_list.append(df_template)
+                        simulation_list.append(df_template)
                 self.simulation_df_nested = pd.DataFrame(simulation_list,columns = self.simulation_input_df.index)
                 self.simulation_df_nested.to_csv(save_simulation_path,index=True,header=True)
 

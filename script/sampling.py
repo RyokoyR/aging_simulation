@@ -1,6 +1,6 @@
 #!/lustre7/home/lustre4/ryoyokosaka/python/.pyenv/shims
 import sys
-sys.path.append('/lustre7/home/lustre4/ryoyokosaka/.pyenv/versions/3.6.0/lib/python3.6/site-packages')
+sys.path.append('lustre7/home/lustre4/ryoyokosaka/python/')
 
 from keras import backend as K
 
