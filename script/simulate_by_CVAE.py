@@ -1,6 +1,6 @@
 #!/lustre7/home/lustre4/ryoyokosaka/python/.pyenv/shims
 import sys
-sys.path.append('lustre7/home/lustre4/ryoyokosaka/python/')
+sys.path.append('/lustre7/home/lustre4/ryoyokosaka/python/')
 
 import os
 import pandas as pd
@@ -64,7 +64,7 @@ class inter_aging_simulate():
                                 label_df.columns = ["age"]
                                 self.decoder_input_df = pd.concat([self.simulation_input_df,label_df],axis=1)
                                 rnaseq_simulation = decoder_model.predict(np.array(self.decoder_input_df))
-                                rnaseq_simulation_df = pd.DataFrame(rnaseq_simulation,index=[sample_name],columns=rnaseq_df.columns) #rnaseq_dfを読み込んでおく必要あり
+                                rnaseq_simulation_df = pd.DataFrame(rnaseq_simulation,index=[str(age)],columns=rnaseq_df.columns) #rnaseq_dfを読み込んでおく必要あり
                                 df_template = pd.concat([df_template,rnaseq_simulation_df],axis = 0)
                         simulation_list.append(df_template)
                 self.simulation_df_nested = pd.DataFrame(simulation_list,columns = self.simulation_input_df.index)
@@ -85,6 +85,6 @@ class inter_aging_simulate():
                                 x = self.simulation_df_nested.loc[sample_name].index
                                 y = self.simulation_df_nested.iloc[:,[gene_name]]
                                 ax.plot(x,y,c = "dodgerblue",alpha = 0.6)
-                        filename = str(self.sample_age)+"yosamle"+gene_name+"simulation.pdf"
+                        filename = str(self.sample_age)+"yo_samle"+gene_name+"simulation.pdf"
                         path = os.path.join(save_fig_directory,filename)
                         fig.savefig(path)
