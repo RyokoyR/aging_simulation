@@ -61,12 +61,15 @@ class inter_aging_simulate():
                 for sample_name in self.simulation_input_df.index:
                         df_template = pd.DataFrame()
                         for age in range(0,101):
-                                sample_latent_df = self.simulation_input_df.loc[sample_name]
-                                label_df = pd.DataFrame([age])
-                                label_df.index = [sample_name]
-                                label_df.columns = ["age"]
-                                self.decoder_input_df = pd.concat([sample_latent_df,label_df],axis=1)
-                                rnaseq_simulation = decoder_model.predict(np.array(self.decoder_input_df))
+                                sample_latent = self.simulation_input_df.loc[sample_name]
+                                #sample_latent_ = pd.DataFrame(sample_latent,columns = sample_name)
+                                #sample_latent_df = sample_latent_.T
+                                #label_df = pd.DataFrame([age])
+                                #label_df.index = [sample_name]
+                                #label_df.columns = ["age"]
+                                label = pd.Series([float(age)])
+                                self.decoder_input = pd.concat([sample_latent,label])
+                                rnaseq_simulation = decoder_model.predict(np.array(self.decoder_input))
                                 rnaseq_simulation_df = pd.DataFrame(rnaseq_simulation,index=[str(age)],columns=rnaseq_df.columns) #rnaseq_dfを読み込んでおく必要あり
                                 df_template = pd.concat([df_template,rnaseq_simulation_df],axis = 0)
                         simulation_list.append(df_template)
