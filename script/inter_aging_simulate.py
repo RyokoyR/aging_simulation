@@ -41,7 +41,7 @@ latent_path = '/lustre7/home/lustre4/ryoyokosaka/python/CVAE_result/latent_varia
 decoder_path = '/lustre7/home/lustre4/ryoyokosaka/python/CVAE_result/decoder_model.hdf5'
 
 age = ["21","38","01","05","44","06","54","22"]
-save_fig_directory = '/lustre7/home/lustre4/ryoyokosaka/python/CVAE_result'
+save_fig_directory = '/lustre7/home/lustre4/ryoyokosaka/python/CVAE_result/'
 simulation_df_nested_path = '/lustre7/home/lustre4/ryoyokosaka/python/CVAE_result/simulation_df_nested.csv'
 drow_gene_name_list = ["SLC41A3","CASP1","FCGR1A","MIR106A","MIR20A","ARL6IP6"]
 for sample_age in age:
