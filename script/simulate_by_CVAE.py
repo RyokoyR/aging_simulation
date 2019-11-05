@@ -62,11 +62,6 @@ class inter_aging_simulate():
                         df_template = pd.DataFrame()
                         for age in range(0,101):
                                 sample_latent = self.simulation_input_df.loc[sample_name]
-                                #sample_latent_ = pd.DataFrame(sample_latent,columns = sample_name)
-                                #sample_latent_df = sample_latent_.T
-                                #label_df = pd.DataFrame([age])
-                                #label_df.index = [sample_name]
-                                #label_df.columns = ["age"]
                                 label = pd.Series([float(age)])
                                 self.decoder_input = pd.concat([sample_latent,label])
                                 rnaseq_simulation = decoder_model.predict(np.array(self.decoder_input))
