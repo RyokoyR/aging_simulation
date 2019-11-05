@@ -21,6 +21,9 @@ from keras.utils.vis_utils import model_to_dot
 
 import h5py
 
+rnaseq_file = os.path.join('/home/ryoyokosaka/python/1_54rnaseq_drop.txt')
+rnaseq_df = pd.read_table(rnaseq_file, index_col=0)
+
 class inter_aging_simulate():
         #このクラスをインスタンス化して使うたびに変更したい引数をここにかく
         def __init__(self,sample_age,latent_variable_df_path,decoder_model_path):
@@ -30,21 +33,21 @@ class inter_aging_simulate():
                 self.decoder_model_path = decoder_model_path
 
         def choice_sample_age(self):
-                if sample_age == "21":
+                if self.sample_age == "21":
                         self.simulation_input_df = self.latent_variable_df.iloc[0:505]
-                if sample_age == "38":
+                if self.sample_age == "38":
                         self.simulation_input_df = self.latent_variable_df.iloc[505:979]
-                if sample_age == "01":
+                if self.sample_age == "01":
                         self.simulation_input_df = self.latent_variable_df.iloc[979:1200]
-                if sample_age == "05":
+                if self.sample_age == "05":
                         self.simulation_input_df = self.latent_variable_df.iloc[1200:1531]
-                if sample_age == "44":
+                if self.sample_age == "44":
                         self.simulation_input_df = self.latent_variable_df.iloc[1531:1808]
-                if sample_age == "06":
+                if self.sample_age == "06":
                         self.simulation_input_df = self.latent_variable_df.iloc[1808:1986]
-                if sample_age == "54":
+                if self.sample_age == "54":
                         self.simulation_input_df = self.latent_variable_df.iloc[1986:2258]
-                if sample_age == "22":
+                if self.sample_age == "22":
                         self.simulation_input_df = self.latent_variable_df.iloc[2258:len(self.latent_variable_df)]
 
                 return self.simulation_input_df
@@ -62,7 +65,7 @@ class inter_aging_simulate():
                                 label_df = pd.DataFrame([age])
                                 label_df.index = [sample_name]
                                 label_df.columns = ["age"]
-                                self.decoder_input_df = pd.concat([self.simulation_input_df,label_df],axis=1)
+                                self.decoder_input_df = pd.concat([sample_latent_df,label_df],axis=1)
                                 rnaseq_simulation = decoder_model.predict(np.array(self.decoder_input_df))
                                 rnaseq_simulation_df = pd.DataFrame(rnaseq_simulation,index=[str(age)],columns=rnaseq_df.columns) #rnaseq_dfを読み込んでおく必要あり
                                 df_template = pd.concat([df_template,rnaseq_simulation_df],axis = 0)
