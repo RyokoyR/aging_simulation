@@ -1,3 +1,7 @@
+#!/lustre7/home/lustre4/ryoyokosaka/python/.pyenv/shims
+import sys
+sys.path.append('lustre7/home/lustre4/ryoyokosaka/python/')
+
 import os
 import tensorflow as tf
 from keras.layers import Input, Dense, Lambda, Layer, Activation, merge

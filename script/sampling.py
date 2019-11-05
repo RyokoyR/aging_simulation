@@ -1,3 +1,7 @@
+#!/lustre7/home/lustre4/ryoyokosaka/python/.pyenv/shims
+import sys
+sys.path.append('lustre7/home/lustre4/ryoyokosaka/python/')
+
 from keras import backend as K
 
 epsilon_std = 1.0
