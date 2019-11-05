@@ -63,13 +63,16 @@ class inter_aging_simulate():
                         for age in range(0,101):
                                 sample_latent = self.simulation_input_df.loc[sample_name]
                                 label = pd.Series([float(age)])
-                                self.decoder_input = pd.concat([sample_latent,label])
-                                rnaseq_simulation = decoder_model.predict(np.array(self.decoder_input))
+                                decoder_input = pd.concat([sample_latent,label])
+                                decoder_input_ = pd.DataFrame(decoder_input)
+                                self.decoder_input_df = decoder_input_.T
+                                rnaseq_simulation = decoder_model.predict(self.decoder_input_df)
                                 rnaseq_simulation_df = pd.DataFrame(rnaseq_simulation,index=[str(age)],columns=rnaseq_df.columns) #rnaseq_dfを読み込んでおく必要あり
                                 df_template = pd.concat([df_template,rnaseq_simulation_df],axis = 0)
                         simulation_list.append(df_template)
-                self.simulation_df_nested = pd.DataFrame(simulation_list,columns = self.simulation_input_df.index)
-                self.simulation_df_nested.to_csv(save_simulation_path,index=True,header=True)
+                self.simulation_dict_nested = dict(zip(self.simulation_input_df.index,simulation_list))
+                #self.simulation_df_nested = pd.DataFrame(simulation_list,index = self.simulation_input_df.index)
+                #self.simulation_df_nested.to_csv(save_simulation_path,index=True,header=True)
 
         #発現変化をシミュレートしたい遺伝子の名前をdrow_gene_name_listにリスト型で与えて使う
         def visualize_gene_expression_simulation(self,drow_gene_name_list,save_fig_directory):
@@ -82,9 +85,11 @@ class inter_aging_simulate():
                         ax = fig.add_subplot(1,1,1)
                         ax.set_xlabel("age(0~100)")
                         ax.set_ylabel("Expression_level")
-                        for sample_name in self.simulation_df_nested.columns:
-                                x = self.simulation_df_nested.loc[sample_name].index
-                                y = self.simulation_df_nested.iloc[:,[gene_name]]
+                        for sample_name in self.simulation_input_df.index:
+                                x = self.simulation_dict_nested[sample_name].index
+                                y = self.simulation_dict_nested[sample_name][gene_name]
+                                #x = self.simulation_dict_nested.loc[sample_name].index
+                                #y = self.simulation_df_nested.iloc[:,[gene_name]]
                                 ax.plot(x,y,c = "dodgerblue",alpha = 0.6)
                         filename = str(self.sample_age)+"yo_samle"+gene_name+"simulation.pdf"
                         path = os.path.join(save_fig_directory,filename)
