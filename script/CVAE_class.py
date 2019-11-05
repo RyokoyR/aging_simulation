@@ -201,5 +201,3 @@ class Tybalt():
         def save_models(self, encoder_file_path, decoder_file_path):
                 self.encoder.save(encoder_file_path)
                 self.decoder.save(decoder_file_path)
-
-        
