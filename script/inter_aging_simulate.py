@@ -35,17 +35,17 @@ epsilon_std = 1.0
 
 #保存したモデルを読み込む
 #encoder_model = keras.models.load_model('/lustre7/home/lustre4/ryoyokosaka/python/CVAE_result/encoder_model.hdf5',custom_object={'sampling':sampling})
-rnaseq_df = pd.read_table('/lustre7/home/lustre4/ryoyokosaka/python/CVAE_result/1_54rnaseq_drop.txt',index_col = 0)
+rnaseq_df = pd.read_table('/lustre7/home/lustre4/ryoyokosaka/python/1_54rnaseq_drop.txt',index_col = 0)
 latent_variable_df = pd.read_csv('/lustre7/home/lustre4/ryoyokosaka/python/CVAE_result/latent_variable_by_cvae_df.csv',index_col = 0)
 latent_path = '/lustre7/home/lustre4/ryoyokosaka/python/CVAE_result/latent_variable_by_cvae_df.csv'
 decoder_path = '/lustre7/home/lustre4/ryoyokosaka/python/CVAE_result/decoder_model.hdf5'
 
-sampleage = ["21","38","01","05","44","06","54","22"]
-save_fig_directory = '/lustre7/home/lustre4/ryoyokosaka/python/CVAE_result'
+age = ["21","38","01","05","44","06","54","22"]
+save_fig_directory = '/lustre7/home/lustre4/ryoyokosaka/python/CVAE_result/'
 simulation_df_nested_path = '/lustre7/home/lustre4/ryoyokosaka/python/CVAE_result/simulation_df_nested.csv'
 drow_gene_name_list = ["SLC41A3","CASP1","FCGR1A","MIR106A","MIR20A","ARL6IP6"]
-for id in sampleage:
-        simulater = inter_aging_simulate(id,latent_path,decoder_path)
+for sample_age in age:
+        simulater = simulate_by_CVAE.inter_aging_simulate(sample_age,latent_path,decoder_path)
         simulater.choice_sample_age()
         simulater.get_simulation_df(simulation_df_nested_path)
         simulater.visualize_gene_expression_simulation(drow_gene_name_list,save_fig_directory)
