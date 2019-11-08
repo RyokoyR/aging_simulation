@@ -1,0 +1,3 @@
+[submodule "script/MMD-CVAE"]
+	path = script/MMD-CVAE
+	url = https://github.com/theislab/trVAE.git
