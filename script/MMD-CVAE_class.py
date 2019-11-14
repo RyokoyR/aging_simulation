@@ -101,7 +101,7 @@ class MMDCVAE():
                 h = Dropout(self.dr_rate)(h)
                 h = Dense(self.original_dim, kernel_initializer='glorot_uniform', use_bias=True)(h)
                 h = Activation('sigmoid')(h)
-                #今までの実装では活性化関数は"sigmoid"だったが、trVAEでは"relu"になってた。optunaに任せて最適化することも考えておく。
+                #今までの実装では活性化関数は"sigmoid"だった(遺伝子発現データにはシグモイド関数による活性化が適している?)が、trVAEでは"relu"になってた。optunaに任せて最適化することも考えておく。
                 self.decoder_model = Model([self.z,self.decoder_label],h)
                 self.decoder_mmd_model = Model([self.z,self.decoder_label],self.z)
                 return self.decoder_model, self.decoder_mmd_model
