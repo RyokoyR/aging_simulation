@@ -2,6 +2,7 @@
 import sys
 sys.path.append('/lustre7/home/lustre4/ryoyokosaka/python/')
 
+import pandas as pd
 import glob
 import re
 import pandas as pd
@@ -63,3 +64,4 @@ for txt_file in path:
     GSE41080_expression_df = pd.concat([GSE41080_expression_df,_expression_df],axis=1)
 
 GSE41080_expression_df.to_csv("/lustre7/home/lustre4/ryoyokosaka/python/data/GSE41080/GSE41080_expression.csv")
+
