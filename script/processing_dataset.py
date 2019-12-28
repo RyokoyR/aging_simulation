@@ -23,7 +23,7 @@ duplicated_transcript = list(SYMBOL[SYMBOL_duplicated.index].unique())
 GSE41080_expression_df = pd.DataFrame()
 for txt_file in path:
     data = pd.read_table(txt_file,index_col="PROBE_ID")
-    signal_name = re.findall('4493594040_\w.AVG_Signal',str(data.columns))[0]
+    signal_name = re.findall('\w\w\w\w\w\w\w\w\w\w_\w.AVG_Signal',str(data.columns))[0]
     data = data.rename(columns = {signal_name:'Signal'})
     data = pd.concat([data,SYMBOL],axis = 1)
     #ファイルパスからサンプルめい(GSM...を取得する)
