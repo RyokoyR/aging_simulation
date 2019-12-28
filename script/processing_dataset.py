@@ -20,8 +20,6 @@ SYMBOL_duplicated = SYMBOL_bool[SYMBOL_bool == True]
 #重複プローブを持つ転写物名リストを取得。
 duplicated_transcript = list(SYMBOL[SYMBOL_duplicated.index].unique())
 
-re.findall('4493594040_\w.AVG_Signal',str(data_ID_exist.columns))[0]
-
 GSE41080_expression_df = pd.DataFrame()
 for txt_file in path:
     data = pd.read_table(txt_file,index_col="PROBE_ID")
@@ -56,7 +54,7 @@ for txt_file in path:
 
 
 
-            #読んだシンボルリストに追加
+        #読んだシンボルリストに追加
         list_read_SYMBOL.append(symbol)
     _expression_df = _expression_df.rename(columns = {"Signal":"sample_name"})
     GSE41080_expression_df = pd.concat([GSE41080_expression_df,_expression_df],axis=1)
