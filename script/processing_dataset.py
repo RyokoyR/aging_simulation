@@ -3,7 +3,8 @@ import numpy as np
 import glob
 import re
 #処理するファイル名のリストを取得
-path = glob.glob("/Users/yokosaka/Desktop/python/data/GSE41080/*_probe.txt")
+#スパコン側のアドレス
+path = glob.glob("~/python/data/GSE41080/*_probe.txt")
 #遺伝子IDが入っているファイルのみ別に読み取る
 #path.remove("/Users/yokosaka/Desktop/python/data/GSE41080/GSM1008309_93173_7280_probe.txt")
 
@@ -12,7 +13,7 @@ path = glob.glob("/Users/yokosaka/Desktop/python/data/GSE41080/*_probe.txt")
 
 #かく転写産物が一回ずつ現れるように前処理する。
 #SYMBOL行で重複のある転写産物名のリストをえる。
-data_ID_exist = pd.read_table("/Users/yokosaka/Desktop/python/data/GSE41080/GSM1008309_93173_7280_probe.txt",index_col="PROBE_ID")
+data_ID_exist = pd.read_table("~/python/data/GSE41080/GSM1008309_93173_7280_probe.txt",index_col="PROBE_ID")
 SYMBOL = data_ID_exist["SYMBOL"]
 SYMBOL_bool = SYMBOL.duplicated()
 SYMBOL_duplicated = SYMBOL_bool[SYMBOL_bool == True]
@@ -60,4 +61,4 @@ for txt_file in path:
     _expression_df = _expression_df.rename(columns = {"Signal":"sample_name"})
     GSE41080_expression_df = pd.concat([GSE41080_expression_df,_expression_df],axis=1)
 
-GSE41080_expression_df
+GSE41080_expression_df.to_csv("./../../data/GSE41080/GSE41080_expression.csv")
