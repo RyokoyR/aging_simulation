@@ -30,8 +30,7 @@ for txt_file in path:
     #ファイルパスからサンプルめい(GSM...を取得する)
     pattern = 'GSM\w\w\w\w\w\w\w'
     sample_name = re.findall(pattern,txt_file)
-    print(sample_name)
-    #print(data)
+
 
     #重複プローブの平均値を計算し新しいデータフレームに格納
     #新しいデータフレームを用意
@@ -42,10 +41,7 @@ for txt_file in path:
         #もしプローブidが重複プローブであるならば平均値を計算する
         if symbol in duplicated_transcript:
             mean = data.loc[data.SYMBOL == symbol,'Signal'].mean()
-            print(mean)
             low = pd.DataFrame(mean,index=[symbol],columns=['Signal'])
-            print(low)
-            print(low.shape)
             _expression_df = pd.concat([_expression_df,low])
         #もしプローブidが重複していないのであればシグナルはそのまま
         elif symbol not in list_read_SYMBOL:
