@@ -63,6 +63,7 @@ for txt_file in path:
         list_read_SYMBOL.append(symbol)
     _expression_df = _expression_df.rename(columns = {"Signal":"sample_name"})
     GSE41080_expression_df = pd.concat([GSE41080_expression_df,_expression_df],axis=1)
-
+    print(_expression_df)
+print(GSE41080_expression_df)
 GSE41080_expression_df.to_csv("/lustre7/home/lustre4/ryoyokosaka/python/data/GSE41080/GSE41080_expression.csv")
 
