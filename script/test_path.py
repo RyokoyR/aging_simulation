@@ -33,7 +33,7 @@ for txt_file in path:
     data = pd.concat([data,SYMBOL],axis = 1)
     #ファイルパスからサンプルめい(GSM...を取得する)
     pattern = 'GSM\w\w\w\w\w\w\w'
-    sample_name = re.findall(pattern,txt_file)
+    sample_name = re.findall(pattern,txt_file)[0]
 
 
     #重複プローブの平均値を計算し新しいデータフレームに格納
@@ -61,7 +61,7 @@ for txt_file in path:
 
         #読んだシンボルリストに追加
         list_read_SYMBOL.append(symbol)
-    _expression_df = _expression_df.rename(columns = {"Signal":"sample_name"})
+    _expression_df = _expression_df.rename(columns = {"Signal":sample_name})
     GSE41080_expression_df = pd.concat([GSE41080_expression_df,_expression_df],axis=1)
     print(_expression_df)
 print(GSE41080_expression_df)
